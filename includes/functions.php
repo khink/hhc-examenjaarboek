@@ -6,8 +6,6 @@ $fotopad = "http://".$fotohost.$lokaalfotopad;
 $maxvan = 5; /* aantal omschrijvingen die een leerling mag doen */
 $maxvoor = 5; /* aantal omschrijvingen die een leerling mag hebben */
 $docmaxvan = 10;
-$beheerlogin = 'directie';
-$beheerwachtwoord = 'directie';
 
 // maakt HTML-inlogschermpje
 function htmlloginscherm() {
@@ -388,15 +386,6 @@ function authenticate(){
   header( 'HTTP/1.0 401 Unauthorized' );
   echo 'Authorization required.';
   exit;
-}
-
-function login_beheer($naam,$pw){
-global $beheerlogin, $beheerwachtwoord;
-  if ($naam==$beheerlogin and $pw==$beheerwachtwoord) {
-  return true;
-  } else {
-    return false;
-  }
 }
 
 function beheerscherm() {

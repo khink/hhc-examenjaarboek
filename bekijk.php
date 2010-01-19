@@ -1,6 +1,7 @@
 <?PHP 
 
 include("includes/functions.php");
+include("includes/appadmin_auth.php");
 
 if (login_beheer($_SERVER['PHP_AUTH_USER'],$_SERVER['PHP_AUTH_PW'])) {
   if ($nr = $_GET['nr']) {
