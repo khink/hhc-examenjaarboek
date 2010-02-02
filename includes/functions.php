@@ -578,7 +578,7 @@ function striphtml($tekst) {
 }
 
 function einddatum(){
-  $einddatum="4-apr-2006 08:00:00";
+  $einddatum="4-apr-2010 08:00:00";
   $eind=strtotime($einddatum);
   return $eind;
 }

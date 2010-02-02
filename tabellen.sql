@@ -73,3 +73,28 @@ CREATE TABLE IF NOT EXISTS `Hpersoneel` (
   `voorvoegsel` varchar(4) default NULL,
   PRIMARY KEY  (`nr`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+-- 
+-- Tabel structuur voor tabel `Hexboekdata`
+-- 
+
+CREATE TABLE IF NOT EXISTS `Hexboekdata` (
+  `stamnr` smallint(4) unsigned NOT NULL,
+  `fotoakkoord` boolean default FALSE,
+  `tekst1` blob,
+  `tekst2` blob
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 ;
+
+-- --------------------------------------------------------
+
+-- 
+-- Tabel structuur voor tabel `Hdocomschr`
+-- 
+
+CREATE TABLE IF NOT EXISTS `Hdocomschr` (
+  `van` smallint(4) unsigned NOT NULL,
+  `voor` int(11) NOT NULL,
+  `omschrijving` blob
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 ;
