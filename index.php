@@ -40,7 +40,7 @@ print $html;
 <TD WIDTH=100% VALIGN=top>
 <!-- HOOFDVELD -->
 <FONT FACE="verdana,arial">
-<CENTER><H1>Examenboek-enqu&ecirc;te</H1></CENTER>
+<CENTER><H1>Vragenlijst Examenboek</H1></CENTER>
 
 <?PHP
 
@@ -51,12 +51,17 @@ if (!$ingelogd[0]) {
     $html=gesloten();
   } else {
     if ($wijz) {
-      $html = wijziging($_POST['stamnr'],$_POST['tekst1'],$_POST['tekst2'],$_POST['fotoakkoord'],$_POST['wachtwoord'],
+      $html = wijziging($_POST['stamnr'],$_POST['tekst1'],$_POST['tekst2'],$_POST['tekst3'],$_POST['fotoakkoord'],$_POST['wachtwoord'],
 			$_POST['lln1'],$_POST['overlln1'],
 		    $_POST['lln2'],$_POST['overlln2'],
 		    $_POST['lln3'],$_POST['overlln3'],
 		    $_POST['lln4'],$_POST['overlln4'],
 		    $_POST['lln5'],$_POST['overlln5'],
+		    $_POST['lln6'],$_POST['overlln6'],
+		    $_POST['lln7'],$_POST['overlln7'],
+		    $_POST['lln8'],$_POST['overlln8'],
+		    $_POST['lln9'],$_POST['overlln9'],
+		    $_POST['lln10'],$_POST['overlln10'],
 		   $_POST['doc1'],$_POST['overdoc1'],
 		   $_POST['doc2'],$_POST['overdoc2'],
 		   $_POST['doc3'],$_POST['overdoc3'],
@@ -68,12 +73,17 @@ if (!$ingelogd[0]) {
 		   $_POST['doc9'],$_POST['overdoc9'],
 			$_POST['doc10'],$_POST['overdoc10']);
     } else if ($opst) {
-      $html = invoer($_POST['stamnr'],$_POST['wachtwoord'],$_POST['tekst1'],$_POST['tekst2'],$_POST['fotoakkoord'],
+      $html = invoer($_POST['stamnr'],$_POST['wachtwoord'],$_POST['tekst1'],$_POST['tekst2'],$_POST['tekst3'],$_POST['fotoakkoord'],
 		    $_POST['lln1'],$_POST['overlln1'],
 		    $_POST['lln2'],$_POST['overlln2'],
 		    $_POST['lln3'],$_POST['overlln3'],
 		    $_POST['lln4'],$_POST['overlln4'],
 		    $_POST['lln5'],$_POST['overlln5'],
+		    $_POST['lln6'],$_POST['overlln6'],
+		    $_POST['lln7'],$_POST['overlln7'],
+		    $_POST['lln8'],$_POST['overlln8'],
+		    $_POST['lln9'],$_POST['overlln9'],
+		    $_POST['lln10'],$_POST['overlln10'],
 		   $_POST['doc1'],$_POST['overdoc1'],
 		   $_POST['doc2'],$_POST['overdoc2'],
 		   $_POST['doc3'],$_POST['overdoc3'],

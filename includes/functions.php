@@ -1,10 +1,10 @@
 <?PHP
 
-$fotohost = "www.hogeland.nl";
-$lokaalfotopad = "/fotos/leerlingen/";
-$fotopad = "http://".$fotohost.$lokaalfotopad;
-$maxvan = 5; /* aantal omschrijvingen die een leerling mag doen */
-$maxvoor = 5; /* aantal omschrijvingen die een leerling mag hebben */
+$fotohost = "";
+$lokaalfotopad = "fotos/";
+$fotopad = $fotohost.$lokaalfotopad;
+$maxvan = 10; /* aantal omschrijvingen die een leerling mag doen */
+$maxvoor = 10; /* aantal omschrijvingen die een leerling mag hebben */
 $docmaxvan = 10;
 
 // maakt HTML-inlogschermpje
@@ -59,7 +59,7 @@ eindexamenboek komt. <P>Je moet ingelogd zijn om dit te kunnen doen.</P>";
 // hier het scherm, als je ingelogd bent
 function htmlingelogdscherm($stamnr,$wachtwoord) {
   include("mysqlsecrets.php");
-  $sql="SELECT fotoakkoord, tekst1, tekst2 FROM Hexboekdata WHERE stamnr=$stamnr";
+  $sql="SELECT fotoakkoord, tekst1, tekst2, tekst3 FROM Hexboekdata WHERE stamnr=$stamnr";
   $result=mysql_query($sql) or die("Ongeldige query: " . mysql_error());
   if (mysql_num_rows($result) == 0) {
     $html = "Je hebt nog geen gegevens ingevuld. \n";
@@ -74,7 +74,7 @@ function htmlingelogdscherm($stamnr,$wachtwoord) {
 // wie nog geen gegevens heeft ingevoerd krijgt dit scherm te zien
 function htmlgegevensinvoeren($stamnr,$wachtwoord) {
   $html="Vul in en klik op de knop <A HREF=\"#opsturen\">onderaan de pagina</A> om deze gegevens op te sturen.\n"; 
-  $html.=standaarddeelformulier($stamnr,$tekst1,$tekst2,1,$wachtwoord);
+  $html.=standaarddeelformulier($stamnr,$tekst1,$tekst2,$tekst3,1,$wachtwoord);
   $html.="<A NAME=\"opsturen\"><H3>Opsturen</H3>\n";
 $html.="<INPUT TYPE=submit NAME=gegevensopsturen VALUE=\"stuur deze gegevens op\">
 </FORM> ";
@@ -82,7 +82,18 @@ $html.="<INPUT TYPE=submit NAME=gegevensopsturen VALUE=\"stuur deze gegevens op\
 }
 
 // functie om gegevens te veranderen
-function invoer($stamnr,$wachtwoord,$tekst1,$tekst2,$fotoakkoord,  $l1,$ol1,$l2,$ol2,$l3,$ol3,$l4,$ol4,$l5,$ol5,  $doc1, $odoc1, $doc2, $odoc2, $doc3, $odoc3, $doc4, $odoc4, $doc5, $odoc5,  $doc6, $odoc6, $doc7, $odoc7, $doc8, $odoc8, $doc9, $odoc9, $doc10, $odoc10) {
+function invoer($stamnr,$wachtwoord,$tekst1,$tekst2,$tekst3,$fotoakkoord,  
+$l1,$ol1,
+$l2,$ol2,
+$l3,$ol3,
+$l4,$ol4,
+$l5,$ol5,  
+$l6,$ol6,  
+$l7,$ol7,  
+$l8,$ol8,  
+$l9,$ol9,  
+$l10,$ol10,  
+$doc1, $odoc1, $doc2, $odoc2, $doc3, $odoc3, $doc4, $odoc4, $doc5, $odoc5,  $doc6, $odoc6, $doc7, $odoc7, $doc8, $odoc8, $doc9, $odoc9, $doc10, $odoc10) {
   include("mysqlsecrets.php");
   global $maxvan, $maxvoor, $docmaxvan;
     $ol1 = striphtml($ol1);
@@ -90,6 +101,11 @@ function invoer($stamnr,$wachtwoord,$tekst1,$tekst2,$fotoakkoord,  $l1,$ol1,$l2,
     $ol3 = striphtml($ol3);
     $ol4 = striphtml($ol4);
     $ol5 = striphtml($ol5);
+    $ol6 = striphtml($ol6);
+    $ol7 = striphtml($ol7);
+    $ol8 = striphtml($ol8);
+    $ol9 = striphtml($ol9);
+    $ol10 = striphtml($ol10);
     $odoc1 = striphtml($odoc1);
     $odoc2 = striphtml($odoc2);
     $odoc3 = striphtml($odoc3);
@@ -100,8 +116,8 @@ function invoer($stamnr,$wachtwoord,$tekst1,$tekst2,$fotoakkoord,  $l1,$ol1,$l2,
     $odoc8 = striphtml($odoc8);
     $odoc9 = striphtml($odoc9);
     $odoc10 = striphtml($odoc10);
-  $leerling = array($l1, $l2, $l3, $l4, $l5);
-  $omschr = array($ol1, $ol2, $ol3, $ol4, $ol5);
+  $leerling = array($l1, $l2, $l3, $l4, $l5, $l6, $l7, $l8, $l9, $l10);
+  $omschr = array($ol1, $ol2, $ol3, $ol4, $ol5, $ol6, $ol7, $ol8, $ol9, $ol10);
   $docent = array($doc1, $doc2, $doc3, $doc4, $doc5, $doc6, $doc7, $doc8, $doc9, $doc10);
   $docomschr = array($odoc1, $odoc2, $odoc3, $odoc4, $odoc5, $odoc6, $odoc7, $odoc8, $odoc9, $odoc10);
 
@@ -114,7 +130,8 @@ function invoer($stamnr,$wachtwoord,$tekst1,$tekst2,$fotoakkoord,  $l1,$ol1,$l2,
     /* oneliner en verhaal opslaan */
     $tekst1 = striphtml($tekst1);
     $tekst2 = striphtml($tekst2);
-    $sql="INSERT INTO Hexboekdata (stamnr, fotoakkoord, tekst1, tekst2) VALUES ('$stamnr','$fotoakkoord','$tekst1','$tekst2')";
+    $tekst3 = striphtml($tekst3);
+    $sql="INSERT INTO Hexboekdata (stamnr, fotoakkoord, tekst1, tekst2, tekst3) VALUES ('$stamnr','$fotoakkoord','$tekst1','$tekst2','$tekst3')";
     $result=mysql_query($sql) or die("Ongeldige query: " . mysql_error());
     /* omschrijvingen over andereleerlingen opslaan */
     for ($i = 0; $i < $maxvan; $i++) {
@@ -165,26 +182,27 @@ function toongegevens($stamnr,$wachtwoord){
   $html.="Als je iets wilt aanpassen, verander het dan en klik op de knop <A HREF=\"#opsturen\">onderaan</A>.<BR>\n"; 
   $html.="Dit heb je ingevoerd:<BR>";
   include("mysqlsecrets.php");
-  $sql="SELECT tekst1,tekst2,fotoakkoord FROM Hexboekdata WHERE stamnr='$stamnr'";
+  $sql="SELECT tekst1,tekst2,tekst3,fotoakkoord FROM Hexboekdata WHERE stamnr='$stamnr'";
   $result=mysql_query($sql) or die("Ongeldige query: " . mysql_error());
   $waarden=mysql_fetch_row($result);
   $tekst1=$waarden[0];
   $tekst2=$waarden[1];
-  $fotoakkoord=$waarden[2];
-  $html.=standaarddeelformulier($stamnr,$tekst1,$tekst2,$fotoakkoord,$wachtwoord);
-$html.="Je kunt deze gegevens aanpassen en opnieuw insturen.<BR>
-<A NAME=\"opsturen\">
-<H3>Opsturen</H3>
-<INPUT TYPE=submit NAME=gegevenswijzigen VALUE=\"Stuur deze gegevens op\">
+  $tekst3=$waarden[2];
+  $fotoakkoord=$waarden[3];
+  $html.=standaarddeelformulier($stamnr,$tekst1,$tekst2,$tekst3,$fotoakkoord,$wachtwoord);
+$html.="<A NAME=\"opsturen\">
+<H3>Wijzigen</H3>
+<INPUT TYPE=submit NAME=gegevenswijzigen VALUE=\"Stuur de bovenstaande gewijzigde gegevens op\">
 </FORM> ";
  return $html;
 
 }
 
 // hier het standaarddeel van ieder formulier
-function standaarddeelformulier($stamnr,$tekst1,$tekst2,$fotoakkoord,$wachtwoord){
+function standaarddeelformulier($stamnr,$tekst1,$tekst2,$tekst3,$fotoakkoord,$wachtwoord){
   global $fotopad;
-  $fotobestand = $fotopad.$stamnr.".jpg";
+  $fotobestand_instroom = $fotopad.'instroom/'.$stamnr.".jpg";
+  $fotobestand_nu = $fotopad.'nu/'.$stamnr.".jpg";
   $sql = "SELECT voornaam, tussenvoegsel, achternaam, klas, woonplaats, loopbaan FROM Hleerlingen WHERE stamnr='$stamnr'";
   $result = mysql_query($sql) or die("Ongeldige query: " . mysql_error());
   $waarden = mysql_fetch_row($result);
@@ -203,16 +221,29 @@ function standaarddeelformulier($stamnr,$tekst1,$tekst2,$fotoakkoord,$wachtwoord
   $llnomschrform = llnomschrform($stamnr);
   $docomschrform = docomschrform($stamnr);
 $html = "<FORM ACTION=\"$PHP_SELF\" METHOD=POST>
-<H3>Gegevens</H3>
+<!--H3>Gegevens</H3>
 <P>
 Naam: $voornaam $tussenvoegsel $achternaam<BR>
 Klas: $klas<BR>
 Woonplaats: $woonplaats<BR>
 Schoolloopbaan: $loopbaan<BR>
 Als deze gegevens niet kloppen, mail dat dan aan <A HREF=\"mailto:m.vanduin@hogeland.nl\">m.vanduin@hogeland.nl</A>.
-</P>
+</P-->
+<h3>Een regel over je foto&#39;s</h3>
+
+<img src=\"$fotobestand_instroom\" height=\"280\">
+<img src=\"$fotobestand_nu\">
+
+
+<p> Omschrijf  hier  wat je eigen brugklasfoto en je huidige foto bij je
+oproepen en vertel ook wat je na het HHC gaat doen en wat je later wilt worden
+in maximaal 200 karakters.</p>
+
+<INPUT TYPE=text SIZE=80 MAXLENGTH=200 NAME=tekst3 VALUE=\"$tekst3\">
+
 $llnomschrform
 $docomschrform
+
 <H3>Vul de omschrijving aan</H3> 
 
   Hier kun je invullen wat je van onderstaande items
@@ -221,73 +252,92 @@ $docomschrform
   karakters)
 
 <UL>
-<LI>Het leukste vak ...</LI>
-<LI>De beste spijbeltruc ...</LI>
-<LI>De beste spiektruc ...</LI>
-<LI>Het vervelendste, saaiste etc. van school is...</LI>
-<LI>Het fijnste, leukste, gekste etc. van school is...</LI>
-<LI>Ik was altijd stiekem verliefd op...</LI>
-<LI>Wat ik zal missen van deze school is ...</LI>
-<LI>....................</LI>
+<li>Het leukste vak ...</li>
+<li>De beste spijbeltruc ...</li>
+<li>De beste spiektruc ...</li>
+<li>Het vervelendste, saaiste etc. van school is...</li>
+<li>Het fijnste, leukste, gekste etc. van school is...</li>
+<li>Ik was altijd stiekem verliefd op...</li>
+<li>Wat ik zal missen van deze school is ...</li>
+<li>....................</li>
 </UL> 
 <INPUT TYPE=text SIZE=80 MAXLENGTH=200 NAME=tekst1 VALUE=\"$tekst1\">
 
-<H3>Anekdotes</H3>
+<h3>Anekdotes</h3>
 
-  <P>Iedereen heeft zo zijn fijne, grappige etc. herinneringen aan
-  school. Schrijf hier jouw verhaal over &eacute;en van de
-  onderstaande items:
-<UL>
-<LI>eerste schooldag</LI>
-<LI>de dagelijkse tocht naar school </LI>
-<LI>te laat komen</LI>
-<LI>gedoe in de klas</LI>
-<LI>stiekem roken</LI>
-<LI>daltonuur</LI>
-<LI>keuze-uur</LI>
-<LI>pauzes</LI>
-<LI>schoolreis</LI>
-<LI>sporttoernooi</LI>
-<LI>discoavond</LI>
-<LI>Advendo</LI>
-<LI>creatieve werkweek</LI>
-<LI>muziekavond</LI>
-<LI>alles anders dan anders dagen</LI>
-<LI>landendag</LI>
-<LI>talentenjacht</LI>
-<LI>examenstress</LI>
-</UL>
+<p>Iedereen heeft zo zijn fijne, grappige etc. herinneringen aan
+school. Schrijf hier jouw tekst(je) over &eacute;en van de
+onderstaande items:</p>
+<ul>
+<li>eerste schooldag</li>
+<li>leukste vak</li>
+<li>fijnste leraar</li>
+<li>de dagelijkse tocht naar school </li>
+<li>te laat komen</li>
+<li>spijbelen</li>
+<li>spieken</li>
+<li>gedoe in de klas</li>
+<li>de eerste keer eruit gestuurd</li>
+<li>mooiste verliefdheden</li>
+<li>mooiste vriendschappen</li>
+<li>stiekem roken</li>
+<li>het meest bijzondere leslokaal</li>
+<li>geheime plekjes in het gebouw</li>
+<li>onderweg naar school</li>
+<li>met de bus naar het praktijkgebouw</li>
+<li>daltonuur</li>
+<li>zelfstudieuur</li>
+<li>schoolreis</li>
+<li>excursies</li>
+<li>sporttoernooi</li>
+<li>discoavond</li>
+<li>Advendo</li>
+<li>creatieve werkweek</li>
+<li>muziekavond</li>
+<li>alles anders dan anders dagen</li>
+<li>landendag</li>
+<li>talentenjacht</li>
+<li>examenstress</li>
+</ul>
 
-  Eventuele bijbehorende foto.s in envelop inleveren met naam en klas
-  en onderwerp foto in de fotobox bij de conci&euml;rge. Je kunt de
-  foto ook mailen naar <A HREF=\"mailto:m.vanduin@hogeland.nl\">m.vanduin@hogeland.nl</A>.
+<p>Eventuele bijbehorende foto&#39;s met naam en klas en onderwerp mailen naar:
+<a href=\"mailto:gerjon@studiostrijd.nl\">gerjon@studiostrijd.nl</a>.</p>
 
 <TEXTAREA ROWS=8 COLS=60 NAME=tekst2>
 $tekst2
 </TEXTAREA>
 
-<H3>Foto</H3>
+<h3>Pasfoto</h3>
 
-  <P>Deze foto van jou komt in het examenboek.  Als je deze foto
-  daarvoor niet geschikt vindt, kruis dit dan aan en lever een andere
-  pasfoto in envelop in bij de fotobox bij de conci&euml;rge.  Schrijf
-  je naam en klas duidelijk achterop de foto. Je kunt ook een pasfoto
-  mailen naar 
-  <A HREF=\"mailto:m.vanduin@hogeland.nl\">m.vanduin@hogeland.nl</A>.</P>
+<p>Er komt een brugklaspasfoto  van jou in het examenjaarboek en de pasfoto van
+het afgelopen jaar. Beide foto&#39;s staan op de site.</p>
 
-<P><IMG SRC=\"$fotobestand\"><BR>
-Mag deze foto worden gebruikt?<BR>
-<INPUT $checked1 TYPE=radio NAME=fotoakkoord VALUE=1>Ja<BR>
-<INPUT $checked0 TYPE=radio NAME=fotoakkoord VALUE=0>Nee, ik lever een andere foto in.   
-<FONT SIZE=-2><B>NB</B> Als je niet op tijd een andere foto inlevert wordt deze foto gebruikt!</FONT>
-</P>
+<p>Als je je huidige pasfoto niet geschikt vindt om in het examenjaarboek te
+komen, kruis dit dan aan en mail de nieuwe pasfoto met naam en klas naar
+<a href=\"mailto:gerjon@studiostrijd.nl\">gerjon@studiostrijd.nl</a>.</p>
+
+<p>Mogen deze foto&#39;s worden gebruikt?<br />
+<input $checked1 type=radio name=fotoakkoord value=1>Ja<br />
+<input $checked0 type=radio name=fotoakkoord value=0>Nee, ik lever een andere foto in.   
+</p>
 
 <INPUT TYPE=hidden NAME=stamnr VALUE=$stamnr>
 <INPUT TYPE=hidden NAME=wachtwoord VALUE=$wachtwoord>";
  return $html;
 }
 
-function wijziging($stamnr,$tekst1,$tekst2,$fotoakkoord,$wachtwoord,  $l1,$ol1,$l2,$ol2,$l3,$ol3,$l4,$ol4,$l5,$ol5,  $doc1, $odoc1, $doc2, $odoc2, $doc3, $odoc3, $doc4, $odoc4, $doc5, $odoc5,  $doc6, $odoc6, $doc7, $odoc7, $doc8, $odoc8, $doc9, $odoc9, $doc10, $odoc10) {
+function wijziging($stamnr,$tekst1,$tekst2,$tekst3,$fotoakkoord,$wachtwoord,  
+$l1,$ol1,
+$l2,$ol2,
+$l3,$ol3,
+$l4,$ol4,
+$l5,$ol5,  
+$l6,$ol6,  
+$l7,$ol7,  
+$l8,$ol8,  
+$l9,$ol9,  
+$l10,$ol10,  
+$doc1, $odoc1, $doc2, $odoc2, $doc3, $odoc3, $doc4, $odoc4, $doc5, $odoc5,  $doc6, $odoc6, $doc7, $odoc7, $doc8, $odoc8, $doc9, $odoc9, $doc10, $odoc10) {
   include("mysqlsecrets.php");
   global $maxvan, $maxvoor, $docmaxvan;
     $ol1 = striphtml($ol1);
@@ -295,6 +345,11 @@ function wijziging($stamnr,$tekst1,$tekst2,$fotoakkoord,$wachtwoord,  $l1,$ol1,$
     $ol3 = striphtml($ol3);
     $ol4 = striphtml($ol4);
     $ol5 = striphtml($ol5);
+    $ol6 = striphtml($ol6);
+    $ol7 = striphtml($ol7);
+    $ol8 = striphtml($ol8);
+    $ol9 = striphtml($ol9);
+    $ol10 = striphtml($ol10);
     $odoc1 = striphtml($odoc1);
     $odoc2 = striphtml($odoc2);
     $odoc3 = striphtml($odoc3);
@@ -305,15 +360,16 @@ function wijziging($stamnr,$tekst1,$tekst2,$fotoakkoord,$wachtwoord,  $l1,$ol1,$
     $odoc8 = striphtml($odoc8);
     $odoc9 = striphtml($odoc9);
     $odoc10 = striphtml($odoc10);
-  $leerling = array($l1, $l2, $l3, $l4, $l5);
-  $omschr = array($ol1, $ol2, $ol3, $ol4, $ol5);
+  $leerling = array($l1, $l2, $l3, $l4, $l5, $l6, $l7, $l8, $l9, $l10);
+  $omschr = array($ol1, $ol2, $ol3, $ol4, $ol5, $ol6, $ol7, $ol8, $ol9, $ol10);
   $docent = array($doc1, $doc2, $doc3, $doc4, $doc5, $doc6, $doc7, $doc8, $doc9, $doc10);
   $docomschr = array($odoc1, $odoc2, $odoc3, $odoc4, $odoc5, $odoc6, $odoc7, $odoc8, $odoc9, $odoc10);
 
   if  (1) {
     $tekst1 = striphtml($tekst1);
     $tekst2 = striphtml($tekst2);
-    $sql="UPDATE Hexboekdata SET fotoakkoord='$fotoakkoord' , tekst1=\"$tekst1\" , tekst2=\"$tekst2\" WHERE stamnr='$stamnr'";
+    $tekst3 = striphtml($tekst3);
+    $sql="UPDATE Hexboekdata SET fotoakkoord='$fotoakkoord' , tekst1=\"$tekst1\" , tekst2=\"$tekst2\" , tekst3=\"$tekst3\" WHERE stamnr='$stamnr'";
     $result=mysql_query($sql) or die("Ongeldige query: " . mysql_error() . "<BR><TT>" . $sql ."</TT>");
     $html.=$result[0];
     /* omschrijvingen over andereleerlingen opslaan */
@@ -455,24 +511,13 @@ function beheerscherm() {
     // foto akkoord?
     $html.="<TD ALIGN=center>";
     //kijk of foto bestaat
-    $fp = fsockopen($fotohost, 80, $errno, $errstr, 10);
-    if (!$fp) {
-    } else {
-
-      $fotobestand = $lokaalfotopad.$stamnr.".jpg";
-      $out = "HEAD $fotobestand HTTP/1.1\r\n";
-      $out .= "Host: $fotohost\r\n";
-      $out .= "Connection: Close\r\n\r\n";
-      fwrite($fp, $out);
-      $status= fgets($fp, 128);
-      while (!feof($fp)) {
-	$buffer = fgets($fp, 4096);
-      }
-      fclose($fp);
-      if (preg_match("/^HTTP\/1.1 200 OK.*/",$status)) {
-      } else {
-	$html.="<FONT FACE=+2 COLOR=red><B>!</B></FONT>";
-      }
+    $fotobestand_nu = $lokaalfotopad.'nu/'.$stamnr.".jpg";
+    $fotobestand_instroom = $lokaalfotopad.'instroom/'.$stamnr.".jpg";
+    if ( ! file_exists($fotobestand_instroom) ) {
+        $html.="<a href=\"\" title=\"instroomfoto ontbreekt\">i</a> ";
+    }
+    if ( ! file_exists($fotobestand_nu) ) {
+        $html.="<a href=\"\" title=\"actuele foto ontbreekt\">n</a> ";
     }
 
     if (($tijd=="nooit") or !($oneliner or $wistudat or $verhalen)) {
@@ -519,18 +564,20 @@ function docentscherm($nr) {
 
 function leerlingscherm($stamnr) {
   global $fotopad;
-  $fotobestand = $fotopad.$stamnr.".jpg";
+  $fotobestand_nu = $fotopad.'nu/'.$stamnr.".jpg";
+  $fotobestand_instroom = $fotopad.'instroom/'.$stamnr.".jpg";
   include("mysqlsecrets.php");
-  $sql="SELECT tekst1,tekst2,fotoakkoord FROM Hexboekdata WHERE stamnr='$stamnr'";
+  $sql="SELECT tekst1,tekst2,tekst3,fotoakkoord FROM Hexboekdata WHERE stamnr='$stamnr'";
   $result=mysql_query($sql) or die("Ongeldige query: " . mysql_error());
   $sql2 = "select voornaam, tussenvoegsel, achternaam, klas, locatie from Hleerlingen where stamnr=$stamnr";
   ($result2 = mysql_query($sql2)) || die("Fout in query: $sql");
   $waarden=mysql_fetch_row($result);
   $tekst1=$waarden[0];
   $tekst2=$waarden[1];
+  $tekst3=$waarden[2];
   //regeleindes in verhaal omzetten
   $tekst2 = preg_replace("'\n'", "<BR>\n", $tekst2);
-  $fotoakkoord=$waarden[2];
+  $fotoakkoord=$waarden[3];
   $leerlinggegevens =mysql_fetch_row($result2); 
   $voornaam = $leerlinggegevens[0];
   $tv = $leerlinggegevens[1];
@@ -544,12 +591,15 @@ function leerlingscherm($stamnr) {
   $html.=$tekst1;
   $html.="<H3>Anekdote:</H3>\n";
   $html.=$tekst2;
+  $html.="<H3>Over foto&#39;s:</H3>\n";
+  $html.=$tekst3;
   $html.="<H3>Medeleerlingen zeggen:</H3>\n";
   $html.=leerlingomschrijvingen($stamnr);
   $html.="<H3>$voornaam over anderen:</H3>";
   $html.=omschrijvingenvanleerling($stamnr);
   $html.="</TD><TD VALIGN=top ALIGN=right>";
-  $html.="<IMG SRC=\"$fotobestand\"><BR>";
+  $html.="<IMG SRC=\"$fotobestand_instroom\" height=\"280\"><BR>";
+  $html.="<IMG SRC=\"$fotobestand_nu\"><BR>";
   $html.="<FONT SIZE=-1><B>Deze foto mag ";
   if (($fotoakkoord != true) and ($fotoakkoord != NULL)) {
     $html.= "<FONT COLOR=red>niet</FONT> ";
@@ -578,13 +628,13 @@ function striphtml($tekst) {
 }
 
 function einddatum(){
-  $einddatum="4-apr-2010 08:00:00";
+  $einddatum="19-feb-2010 08:00:00";
   $eind=strtotime($einddatum);
   return $eind;
 }
 
 function startdatum(){
-  $startdatum="05-apr-2005 23:59:59";
+  $startdatum="1-apr-2001 11:11:11";
   $start=strtotime($startdatum);
   return $start;
 }
@@ -667,10 +717,19 @@ function docallespagina() {
 function llnomschrform($stamnr) {
   include("mysqlsecrets.php");
   global $maxvan, $maxvoor;
-  $html = "<H3>Een regel over een medeleerling</H3>
-  Omschrijf hier &eacute;en of maximaal $maxvan favoriete medeleerlingen in
-  &eacute;en zin. (maximaal 200 karakters).<BR>Het is niet mogelijk 
-  deze opmerking(en) te herzien, denk er dus goed over na!<BR>";
+  $html = "
+<h3>Een regel over een medeleerling</h3>
+
+<p>Omschrijf hier &eacute;&eacute;n of maximaal 10 medeleerlingen in maximaal
+200 karakters.  Natuurlijk kies je hierbij een positieve insteek.</p>
+
+<p>Wie het eerst komt, wie het eerst maalt. Als bij een leerling 10 keer een
+zin is ingevuld, gaat de invulmogelijkheid automatisch op slot. Het is niet
+mogelijk elkaars invullingen te zien. Dit waarborgt de privacy.</p>
+ 
+<p>Het is niet mogelijk deze opmerking(en) te herzien, denk er dus goed over
+na!</p>";
+
   /* kijken hoeveel omschrijvingen leerling al heeft ingestuurd */
   $sql1 = "SELECT COUNT(*) FROM Hllnomschr WHERE van=$stamnr";
   $result1 = mysql_query($sql1);
@@ -679,7 +738,7 @@ function llnomschrform($stamnr) {
   $html.="Je hebt $aantal van $maxvan omschrijvingen ingevuld.<BR>\n";
 
   for ($i = $aantal + 1; $i <= $maxvan ; $i++) {
-    /* leerlingen selecteren die nog geen 5x omschreven zijn, niet de leerling zichzelf laten omschrijven */
+    /* leerlingen selecteren die nog geen X (maxvoor) keer omschreven zijn, niet de leerling zichzelf laten omschrijven */
     $html.="<SELECT NAME=\"lln$i\">";
     $sql2 = "SELECT stamnr, CONCAT(voornaam,' ',tussenvoegsel,' ',achternaam,' ',klas) FROM Hleerlingen 
 WHERE ((SELECT COUNT(*) FROM Hllnomschr WHERE voor=Hleerlingen.stamnr) < $maxvoor 
@@ -693,10 +752,6 @@ ORDER BY locatie, klas, voornaam";
     $html.="</SELECT>\n<INPUT TYPE=text SIZE=80 MAXLENGTH=200 NAME=\"overlln$i\" VALUE=\"$overleerling\"><BR>\n";
   }
 
-  $html.="<FONT SIZE=-1>Wie het eerst komt, wie het eerst maalt. Als bij een
-  leerling $maxvoor keer een zin is ingevuld, gaat de invulmogelijkheid
-  automatisch op slot. Het is niet mogelijk elkaars invullingen te
-  zien. Dit waarborgt de privacy.</FONT><BR>";
   return $html;
 
 }
@@ -704,12 +759,14 @@ ORDER BY locatie, klas, voornaam";
 function docomschrform($stamnr) {
   include("mysqlsecrets.php");
   global $docmaxvan;
-  $html = "<H3>Een regel over een docent</H3>
-  Omschrijf hier &eacute;en of maximaal $docmaxvan favoriete docenten of andere
-  personeelsleden (directie, concierges etc.) in &eacute;en zin
-  (maximaal 200 karakters).<BR>
-  Het is niet mogelijk 
-  deze opmerking(en) te herzien, denk er dus goed over na!<BR>";
+  $html = "
+<h3>Een regel over een docent</h3>
+
+<p>Omschrijf hier &eacute;&eacute;n of maximaal 10 favoriete docenten of ander
+personeelsleden (directie, conci&euml;rges etc.)in &eacute;&eacute;n zin
+(maximaal 200 karakters). Het is niet mogelijk elkaars invullingen te zien. Dit
+waarborgt de &quot;privacy&quot;.</p>";
+
   /* kijken hoeveel omschrijvingen leerling al heeft ingestuurd */
   $sql1 = "SELECT COUNT(*) FROM Hdocomschr WHERE van=$stamnr";
   $result1 = mysql_query($sql1);
