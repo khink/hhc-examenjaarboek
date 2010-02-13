@@ -84,7 +84,8 @@ CREATE TABLE IF NOT EXISTS `Hexboekdata` (
   `stamnr` smallint(4) unsigned NOT NULL,
   `fotoakkoord` boolean default FALSE,
   `tekst1` blob,
-  `tekst2` blob
+  `tekst2` blob,
+  `tekst3` blob
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 ;
 
 -- --------------------------------------------------------
