@@ -1,2 +1,3 @@
 includes/appadmin_auth.php
 includes/mysqlsecrets.php
+fotos/*/*.jpg
