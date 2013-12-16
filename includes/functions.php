@@ -301,7 +301,7 @@ onderstaande items:</p>
 </ul>
 
 <p>Eventuele bijbehorende foto&#39;s met naam en klas en onderwerp mailen naar:
-<a href=\"mailto:gerjon@studiostrijd.nl\">gerjon@studiostrijd.nl</a>.</p>
+<a href=\"mailto:t.nanninga@hogeland.nl\">t.nanninga@hogeland.nl</a>.</p>
 
 <TEXTAREA ROWS=8 COLS=60 NAME=tekst2>
 $tekst2
@@ -314,7 +314,7 @@ het afgelopen jaar. Beide foto&#39;s staan op de site.</p>
 
 <p>Als je je huidige pasfoto niet geschikt vindt om in het examenjaarboek te
 komen, kruis dit dan aan en mail de nieuwe pasfoto met naam en klas naar
-<a href=\"mailto:gerjon@studiostrijd.nl\">gerjon@studiostrijd.nl</a>.</p>
+<a href=\"mailto:t.nanninga@hogeland.nl\">t.nanninga@hogeland.nl</a>.</p>
 
 <p>Mogen deze foto&#39;s worden gebruikt?<br />
 <input $checked1 type=radio name=fotoakkoord value=1>Ja<br />
@@ -628,7 +628,7 @@ function striphtml($tekst) {
 }
 
 function einddatum(){
-  $einddatum="19-feb-2010 08:00:00";
+  $einddatum="12-03-2013 23:59:59";
   $eind=strtotime($einddatum);
   return $eind;
 }
