@@ -19,9 +19,10 @@ Prerequisites
 
 You should have an account on a web server with PHP and MySQL installed.
 Tested on:
-PHP: 5 
-Apache: 2 (mod_php)
-MySQL: 5.1.37-1ubuntu5
+
+* PHP: 5 
+* Apache: 2 (mod_php)
+* MySQL: 5.1.37-1ubuntu5
 
 
 Installing
@@ -42,7 +43,8 @@ Installing
   (If you have only one database you may want to GRANT on mydbname.tablename
   instead.) 
 
-- Extract these folders in some location on your server, for example:
+- Extract these folders in some location on your server, for example::
+
   $ cd ~/public_html
   $ mkdir jaarboek
   $ cd jaarboek
