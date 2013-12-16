@@ -1,6 +1,20 @@
 HHC-Examenboek
 ==============
 
+Description
+-----------
+
+A web application for gathering data for a high school students' yearbook.
+
+Students can write short lines about their fellow students, their teachers,
+and there are text fields where they can write down memorable stories.
+In addition, they can comment on their own portraits (old and current). 
+
+There's a management interface for the editors of the yearbook, who should be
+able to see all information on one page, and also check who hasn't filled in
+anything yet.
+
+
 Disclaimer
 ----------
 
@@ -56,6 +70,15 @@ Installing
 
 - Set a master password for the person who can view everything in
   includes/appadmin_auth.php
+
+- Populate the tables with students (Hleerlingen) and teachers (Hpersoneel)
+
+- Copy the photos into the directories fotos/instroom (first year) and
+  fotos/nu. Filenames should be ID.jpg where ID is the number that identifies a
+  student in the Hleerlingen table.
+
+- Change the $einddatum variable in includes/functions.php to disable
+  submissions from that time on.
 
 
 License
